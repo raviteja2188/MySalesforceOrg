@@ -1,0 +1,57 @@
+<apex:page standardStylesheets="false" controller="ContactController">
+    <html ng-app="MaterialApp">
+        
+        <head>
+            <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.0/angular-material.min.css"/>
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic"/>
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-aria.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.0/angular-material.min.js"></script>
+            
+        </head>
+        	
+        <body style="margin:2%">
+             <md-checkbox md-indeterminate=""
+              aria-label="Checkbox Indeterminate" class="md-primary">
+            Checkbox: Indeterminate
+          </md-checkbox>
+            <md-input-container>
+                
+                <label>First Name</label>
+                <input type="text" class="asdf"  required="" md-maxlength="10" id="fn"/>
+                
+            </md-input-container>
+            <md-input-container>
+              	<label>Last Name</label>
+                <input type="text"  required="" md-maxlength="10" id="ln"/>
+            </md-input-container>
+            <md-button class="md-primary" onclick="submitRecord()">Submit</md-button>
+
+            
+        </body>
+        
+        <script>	
+        //var submit;
+        
+        function submitRecord(){
+            debugger;
+            var FirstName = document.getElementById('fn').value;
+        	var laststName = document.getElementById('ln').value;
+        	alert('Hello '+FirstName+' '+laststName);
+            
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.ContactController.insertContact}',
+                FirstName, laststName,
+                function(response){
+                    //alert(response);
+                    window.location.href= '/'+response;
+            });
+        }
+        
+        
+        </script>
+        
+        
+    </html>
+</apex:page>

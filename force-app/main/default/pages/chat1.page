@@ -1,0 +1,7 @@
+<apex:page sidebar="false" showHeader="false" standardController="contact">
+    <apex:pageBlock title="Wats App Chat">
+        <apex:pageBlockSection >
+        <apex:outputField value="{!contact.Name}"/>
+            </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:page>

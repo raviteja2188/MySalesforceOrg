@@ -1,0 +1,41 @@
+<apex:page >
+    
+    <html>
+<body>
+
+<h2>My First JavaScript</h2>
+
+<button type="button"
+onclick="document.getElementById('demo').innerHTML = Date()">
+Click me to display Date and Time.</button>
+
+<p id="demo"></p>
+
+</body>
+</html> 
+    
+    <h1>
+        Redeclaring a Variable Using var
+    </h1>
+    <p id="demo"></p>
+    <Script>
+         var x= 10;
+        var x = 2;
+        document.getElementById("demo").innerHTML = x;
+    </Script>
+   <h3>
+       JavaScript const
+    </h3>
+    <p id="demo"></p>
+    <Script>
+    try {
+        const PI = 4.66666666666;
+       PI = 4.66;
+         }
+        catch (err) {
+        document.getElementById("demo").innerHTML = err;
+        }
+        
+    </Script>
+   
+</apex:page>

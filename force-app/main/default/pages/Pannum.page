@@ -1,0 +1,49 @@
+<apex:page standardStylesheets="false" controller="Pancontroller" >
+    <html>
+        <head>
+            <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.0/angular-material.min.css"/>
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic"/>
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-aria.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.0/angular-material.min.js"></script>
+        </head>
+        
+         <body style="margin:2%">
+            <md-input-container>
+                
+                <label>PanNumberName </label>
+                <input type="text" class="asdf"  required="" md-maxlength="10" id="pn"/>
+                
+            </md-input-container>
+            <md-input-container>
+              	<label>PanNumber</label>
+                <input type="text&Number"  required="" md-maxlength="10" id="nu"/>
+            </md-input-container>
+            <md-button class="md-primary" onclick="submitRecord()">Submit</md-button>
+
+            
+        </body>
+       <script>	
+        
+        
+        function submitRecord(){
+            debugger;
+            var PanNumberName = document.getElementById('pn').value;
+        	var PanNumber = document.getElementById('nu').value;
+        	alert('Hello '+PanNumberName+' '+PanNumber);
+            
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.Pancontroller.insertPan}',
+                PanNumberName, PanNumber,
+                function(response){
+                    alert(response);
+                    window.location.href= '/'+response;
+            });
+        }
+        
+                
+        </script>
+        
+    </html>
+</apex:page>

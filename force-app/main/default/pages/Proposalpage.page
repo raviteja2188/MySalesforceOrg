@@ -1,0 +1,61 @@
+<apex:page standardStylesheets="false" controller="ProposalPage1">
+    <html>
+        <head>
+            <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.0/angular-material.min.css"/>
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic"/>
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-aria.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.0/angular-material.min.js"></script>
+        </head>
+        <body style="margin:2%" ng-app="app" ng-controller="ctrl">
+            <md-input-container>
+                
+                <label>Title </label>
+                <input type="text"  required="" ng-model="projectDetails.Title__c" id="tl"/>
+                
+            </md-input-container>
+            <md-input-container>
+                <label>Acronym</label>
+                <input type="text"  required="" ng-model="projectDetails.Acronym__c"   id="am"/>
+            </md-input-container>
+            <md-input-container>
+                <label>Project Description</label>
+                <textarea name="bio" required=""  ng-model="projectDetails.Project_Discription__c"  id="pd"></textarea>
+           
+            </md-input-container>
+            <md-input-container>
+                <label>Project Objective</label>
+                <textarea name="bio" required="" id="po" ng-model="projectDetails.Project_Objective__c" ></textarea>
+           
+            </md-input-container>
+           
+            <md-button class="md-primary" ng-click="submitRecord()">Submit</md-button>
+            
+            
+        </body>
+        <script>	
+
+        
+        
+        var app = angular.module('app', ['ngMaterial'])
+
+        app.controller('ctrl', function($scope) {
+            $scope.projectDetails = {'Title__c':'','Acronym__c':'','Project_Discription__c':'','Project_Objective__c':'',};
+           
+            $scope.submitRecord = function(){
+            	Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.ProposalPage1.insertProp}',
+                $scope.projectDetails,
+                function(response){
+                    alert(response);
+                    window.location.href= '/'+response;
+                });
+            }
+        });
+        
+        </script>
+        
+        
+    </html>
+</apex:page>

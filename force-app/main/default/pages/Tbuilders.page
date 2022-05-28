@@ -1,0 +1,71 @@
+<apex:page standardStylesheets="false" controller="tBuilders">
+    <html>
+        <head>
+            <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.0/angular-material.min.css"/>
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic"/>
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-aria.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.0/angular-material.min.js"></script>
+
+        </head>
+         <body style="margin:2%" ng-app="app" ng-controller="ctrl">
+            <md-input-container>
+                 <label>BuilderName</label>
+                <input type="text"  required="" ng-model="builderdetails.BuilderName__c" id="fn"/>
+               
+             </md-input-container>
+           
+            <md-input-container>
+                 <label>Phone</label>
+                <input type="Number"  required="" ng-model="builderdetails.Phone__c" id="ph"/>
+                 </md-input-container>
+                <md-input-container>
+                 <label>Number of Locations</label>
+                    <input type="Number"  required="" ng-model="builderdetails.Number_of_Locations__c" id="ct"/>
+                </md-input-container>
+             
+                 <md-input-container>
+                 <label>Location</label>
+                    
+                      
+                      <input type="Location"  required="" ng-model="builderdetails.Location__c" id="ct"/>
+                </md-input-container>
+             <md-button class="md-primary" ng-click="submitRecord()">Submit</md-button>    
+         
+             
+             <div class="loadingSection" ng-show="showSpinnereditProf">
+                   <div class="loadingBackground"></div>
+                 <div>
+                 <apex:image url="{!$Resource.loading2}" styleClass="loading2" width="150" />
+                 </div>
+             </div> 
+           </body>
+        
+         
+        <script>
+         var app = angular.module('app', ['ngMaterial'])
+
+        app.controller('ctrl', function($scope) {
+            $scope.builderdetails ={'BuilderName__c':'','Phone__c':'','Number_of_Locations__c':'','Location__c':'',};
+           
+            $scope.submitRecord = function(){
+            $scope.showSpinnereditProf = true;
+                
+            	Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.tBuilders.insertbuilders}',
+                $scope.builderdetails,
+                function(response){
+                    
+                    window.location.href= '/'+response;
+                    $scope.showSpinnereditProf = false;
+                    
+                    
+                    
+                });
+            }
+        });
+        </script>
+        
+    </html>
+</apex:page>

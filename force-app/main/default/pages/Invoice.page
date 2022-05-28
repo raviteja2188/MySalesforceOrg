@@ -1,0 +1,60 @@
+<apex:page standardStylesheets="false" controller="Invoice" >
+    <html>
+        <head>
+             <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.0/angular-material.min.css"/>
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic"/>
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-aria.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.0/angular-material.min.js"></script>
+        </head>
+         <body style="margin:2%" ng-app="app" ng-controller="ctrl">
+            <md-input-container>
+                 <label>Invoice Name </label>
+                <input type="text"  required="" ng-model="invoiceDetails.Name" id="in"/>
+               
+             </md-input-container>
+           
+            <md-input-container>
+                <label>Purchase Order	</label>
+                <textarea name="bio" required=""  ng-model="invoiceDetails.Purchase_Order__c"  id="po"></textarea>
+           
+            </md-input-container>
+            <md-input-container>
+                <label>Quantity</label>
+                <input type="Number"  required="" ng-model="invoiceDetails.Quantity__c" id="qy"/>
+           
+            </md-input-container>
+            <md-input-container>
+                <label>Description</label>
+                <textarea name="bio" required="" id="dp" ng-model="invoiceDetails.Description__c" ></textarea>
+           
+            </md-input-container>
+              <md-input-container>
+                <label>Terms and Conditions</label>
+                <textarea name="bio" required="" id="tm" ng-model="invoiceDetails.Terms_Conditions__c" ></textarea>
+           
+            </md-input-container>
+            <md-button class="md-primary" ng-click="submitRecord()">Submit</md-button>
+           </body>
+        <script>
+         var app = angular.module('app', ['ngMaterial'])
+
+        app.controller('ctrl', function($scope) {
+            $scope.invoiceDetails ={'Name':'','Purchase_Order__c':'','Quantity__c':'','Description__c':'','Terms_Conditions__c':'',};
+           
+            $scope.submitRecord = function(){
+            	Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.Invoice.insertInvoice}',
+                $scope.invoiceDetails,
+                function(response){
+                    alert(response);
+                    window.location.href= '/'+response;
+                });
+            }
+        });
+        </script>
+        
+        
+    </html>
+</apex:page>

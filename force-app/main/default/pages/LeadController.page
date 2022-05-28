@@ -1,0 +1,55 @@
+<apex:page standardStylesheets="false" controller="leadpage">
+    <html>
+        <head>
+             <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.0/angular-material.min.css"/>
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic"/>
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-aria.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.0/angular-material.min.js"></script>
+        </head>
+        <body style="margin:2%">
+            <md-input-container>
+                
+                <label>Last Name</label>
+                <input type="text"   required="" md-maxlength="10" id="l"/>
+                
+            </md-input-container>
+            <md-input-container>
+              	<label>Company</label>
+                <input type="text"  required="" md-maxlength="10" id="c"/>
+            </md-input-container>
+            <md-input-container>
+              	<label>Phone</label>
+                <input type="Number"  required="" md-maxlength="10" id="p"/>
+            </md-input-container>
+            <md-button class="md-primary" onclick="submitRecord()">Submit</md-button>
+
+            
+        </body>
+         <script>
+            function submitRecord(){
+            var lastName = document.getElementById('l').value;
+            var company = document.getElementById('c').value;
+            var phone = document.getElementById('p').value;
+            alert(+lastName+''+company+''+phone);
+           var fullLeadRecord = {};
+                fullLeadRecord.LastName = lastName;
+                fullLeadRecord.Company = company;
+                fullLeadRecord.Phone =phone;
+                Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.leadpage.insertLead}', 
+                    fullLeadRecord,
+                     function(response){
+                    alert(response);
+                    window.location.href= '/'+response;
+            });
+                
+            }
+        
+        
+        </script>
+        
+         
+    </html>
+</apex:page>
